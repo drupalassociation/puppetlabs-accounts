@@ -5,9 +5,18 @@ define accounts::manage_keys(
 ) {
 
   $key_array   = split($name, ' ')
-  $key_type    = $key_array[0]
-  $key_content = $key_array[1]
-  $key_name    = $key_array[2]
+  # If the key array doesn't start with ssh, then key_array[0] is assumed to
+  # contain ssh options separated by commas.
+  if $key_array[0] =~ /^ssh/ {
+    $key_type    = $key_array[0]
+    $key_content = $key_array[1]
+    $key_name    = $key_array[2]
+  } else {
+    $key_options = split($key_array[0], ',')
+    $key_type    = $key_array[1]
+    $key_content = $key_array[2]
+    $key_name    = $key_array[3]
+  }
   $key_title = "${user}_${key_type}_${key_name}"
 
   ssh_authorized_key { $key_title:
