@@ -8,7 +8,7 @@ define accounts::manage_keys(
   # If the key array doesn't start with ssh, then key_array[0] is assumed to
   # contain ssh options separated by commas.
   if $key_array[0] =~ /^ssh/ {
-    $key_options = ''
+    $key_options = undef
     $key_type    = $key_array[0]
     $key_content = $key_array[1]
     $key_name    = $key_array[2]
