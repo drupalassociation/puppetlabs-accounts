@@ -8,7 +8,7 @@ Puppet::Functions.create_function(:accounts_ssh_options_parser) do
     param 'String', :str
   end
 
-  def options_parser_String(str)
+  def accounts_ssh_options_parser_String(str)
     CSV.parse_line(str)
   end
 end
