@@ -3,8 +3,8 @@
 
 require 'csv'
 
-Puppet::Functions.create_function(:options_parser) do
-  dispatch :options_parser_String do
+Puppet::Functions.create_function(:accounts_ssh_options_parser) do
+  dispatch :accounts_ssh_options_parser_String do
     param 'String', :str
   end
 
