@@ -13,7 +13,7 @@ define accounts::manage_keys(
     $key_content = $key_array[1]
     $key_name    = $key_array[2]
   } else {
-    $key_options = split($key_array[0], ',')
+    $key_options = options_parser($key_array[0])
     $key_type    = $key_array[1]
     $key_content = $key_array[2]
     $key_name    = $key_array[3]
