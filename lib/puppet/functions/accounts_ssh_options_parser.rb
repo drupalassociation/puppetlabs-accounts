@@ -8,7 +8,19 @@ Puppet::Functions.create_function(:accounts_ssh_options_parser) do
   end
 
   def accounts_ssh_options_parser_String(str)
-    str.scan(/(?:\'[^'']*\'|[^,])+/)
+    words = []
+    field = ''
+    str.scan(/\G\,*(?>([^\,\\\'\"]+)|'([^\']*)'|("(?:[^\"\\]|\\.)*")|(\\.?)|(\S))(\,|\z)?/m) do
+      |word, sq, dq, esc, garbage, sep|
+      raise ArgumentError, "Unmatched double quote: #{str.inspect}" if garbage
+      field << (word || sq || dq || esc.gsub(/\\(.)/, '\\1'))
+      field.gsub(/\\=/,'\\=\"')
+      if sep
+        words << field
+        field = ''
+      end
+    end
+    words
   end
 
 end
