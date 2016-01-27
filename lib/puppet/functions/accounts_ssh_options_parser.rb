@@ -9,6 +9,6 @@ Puppet::Functions.create_function(:accounts_ssh_options_parser) do
   end
 
   def accounts_ssh_options_parser_String(str)
-    CSV.parse_line(str.to_csv)
+    CSV.parse_line([str].to_csv)
   end
 end
